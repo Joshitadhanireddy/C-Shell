@@ -1,7 +1,7 @@
 **My Custom Shell**
 
 
-This project is a custom shell written in C, designed to provide a simplified yet powerful command-line interface. 
+This project is a custom shell written in C, designed to provide a simplified yet powerful command-line interface. It is my OSN (Operating Systems & Networks) mini-project-1.
 
 **To Compile**
 
