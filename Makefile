@@ -8,7 +8,7 @@ CFLAGS = -Wall -Wextra -O2
 TARGET = myprogram
 
 # Source files
-SRCS = prompts.c hop.c reveal.c log.c seek.c proclore.c
+SRCS = prompts.c hop.c reveal.c log.c seek.c proclore.c redirection.c activities.c pipes.c signals.c neonate.c man.c fgbg.c myshrc.c
 
 # Object files
 OBJS = $(SRCS:.c=.o)

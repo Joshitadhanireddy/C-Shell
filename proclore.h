@@ -7,6 +7,6 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-#define BUFFER_SIZE 1024
+#define BUFFER_SIZE 4096
 
 void get_process_info(pid_t pid);

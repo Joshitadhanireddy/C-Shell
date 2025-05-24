@@ -1,5 +1,4 @@
 
-
 #ifndef SEEK_H
 #define SEEK_H
 
@@ -13,10 +12,6 @@
 #include <stdbool.h>
 
 #define MAX_PATH 1024
-#define redprompt "\e[0;91m"
-#define pinkprompt  "\033[38;5;213m"
-#define orangeprompt "\033[38;5;208m"
-#define yellowprompt  "\e[0;33m"
 #define normal "\033[0m"
 #define blueprompt  "\033[94m"
 #define whiteprompt "\033[37m"

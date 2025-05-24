@@ -1,5 +1,4 @@
 #include "seek.h"
-
 bool is_directory(const char *path) 
 {
     struct stat statbuf;
@@ -84,7 +83,17 @@ void seek(int argc, char *argv[], const char *homedir, char *previousdir)
     char *target = NULL, *dir_path = NULL;
     int i;
     bool use_previous_dir = false;
-    for(i = 1; i < argc; i++) 
+    int actual_count=argc;
+    for(int i=0;i<argc;i++)
+    {
+        if(argv[i]==NULL)
+        {
+            actual_count=i;
+            // printf("%d",arg_count);
+            break;
+        }
+    }
+    for(i = 1; i < actual_count; i++) 
     {
         if (strcmp(argv[i], "-") == 0) 
         {
@@ -115,20 +124,20 @@ void seek(int argc, char *argv[], const char *homedir, char *previousdir)
         } 
         else 
         {
-            printf("Too many arguments\n");
+            printf(redprompt "Too many arguments\n"normal);
             return;
         }
     }
 
     if (only_dirs && only_files) 
     {
-        printf("Invalid flags!\n");
+        printf(redprompt "Invalid flags!\n"normal);
         return;
     }
 
     if (target == NULL) 
     {
-        printf("No search target specified\n");
+        printf(redprompt "No search target specified\n" normal);
         return;
     }
 
@@ -137,7 +146,7 @@ void seek(int argc, char *argv[], const char *homedir, char *previousdir)
     {
         if (previousdir[0] == '\0') 
         {
-            printf("No previous directory available\n");
+            printf(redprompt "No previous directory available\n"normal);
             return;
         }
         strncpy(full_path, previousdir, sizeof(full_path));
@@ -160,32 +169,34 @@ void seek(int argc, char *argv[], const char *homedir, char *previousdir)
     int match_count = 0;
     search_directory(full_path, "", target, only_dirs, only_files, matches, &match_count);
 
-    if (match_count == 0) 
+    if(match_count == 0) 
     {
-        printf("No match found!\n");
+        printf(redprompt "No match found!\n" normal);
     } 
-    else if (exec_flag && match_count == 1) 
+    else if(exec_flag && match_count == 1) 
     {
-        if (matches[0].is_dir) 
+        if(matches[0].is_dir) 
         {
             if (chdir(matches[0].path) != 0) 
             {
-                printf("Missing permissions for task!\n");
+                printf(redprompt "Missing permissions for task!\n" normal);
             }
         }
         else 
         {
             FILE *file = fopen(matches[0].path, "r");
-            if (file) {
+            if(file) 
+            {
                 char buffer[1024];
-                while (fgets(buffer, sizeof(buffer), file)) {
+                while(fgets(buffer, sizeof(buffer), file)) 
+                {
                     printf("%s", buffer);
                 }
                 fclose(file);
             } 
             else 
             {
-                printf("Missing permissions for task!\n");
+                printf(redprompt "Missing permissions for task!\n" normal);
             }
         }
     } 

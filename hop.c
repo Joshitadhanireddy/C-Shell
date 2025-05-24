@@ -5,8 +5,16 @@ void hop(char **args, int arg_count, char *home_directory, char *previous_direct
     char current_directory[MAXL];
     char target_directory[MAXL];
     int hop_success;
-
-    if(arg_count == 0) 
+    int actual_count=arg_count;
+    for(int i=0;i<arg_count;i++)
+    {
+        if(args[i] == NULL)
+        {
+            actual_count=i;
+            break;
+        }
+    }
+    if(actual_count == 0) 
     {
         strcpy(target_directory, home_directory);
         hop_success = chdir(target_directory);
@@ -24,10 +32,9 @@ void hop(char **args, int arg_count, char *home_directory, char *previous_direct
         return;
     }
 
-    for(int i = 0; i < arg_count; i++) 
+    for(int i = 0; i < actual_count && args[i] != NULL; i++) 
     {
         getcwd(current_directory, sizeof(current_directory));
-
         if(strcmp(args[i], "~") == 0) 
         {
             strcpy(target_directory, home_directory);
@@ -63,7 +70,8 @@ void hop(char **args, int arg_count, char *home_directory, char *previous_direct
         {
             strcpy(previous_directory, current_directory);
             getcwd(current_directory, sizeof(current_directory));
-            printf("%s\n", current_directory);
+            fprintf(stdout, "%s\n", current_directory);
+            fflush(stdout);
         } 
         else 
         {

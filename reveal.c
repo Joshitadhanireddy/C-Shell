@@ -50,7 +50,7 @@ void reveal(char *flags, char *path, char *home_directory, char *previous_direct
     struct stat st;
     if((dir = opendir(path)) == NULL) 
     {
-        perror("reveal");
+        perror(redprompt "reveal" normal);
         return;
     }
     char entries[1024][256];
@@ -69,7 +69,7 @@ void reveal(char *flags, char *path, char *home_directory, char *previous_direct
 
         if(stat(fullpath, &st) == -1) 
         {
-            perror("reveal");
+            perror(redprompt "reveal" normal);
             continue;
         }
 

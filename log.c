@@ -1,6 +1,5 @@
 #include "log.h"
 #include "prompts.h"
-
 static char *log_entries[MAX_LOG_ENTRIES];
 static int log_count = 0;
 #define LOG_FILE_NAME "shell_log"  
@@ -10,10 +9,9 @@ void init_log()
     load_log();
 }
 
-
 void add_command_to_log(const char *command) 
 {
-    if (log_count > 0 && strcmp(log_entries[log_count - 1], command) == 0) 
+    if(log_count > 0 && strcmp(log_entries[log_count - 1], command) == 0) 
     {    
         return;
     }
@@ -50,6 +48,7 @@ void purge_log()
 
 void execute_log_command(int index) 
 {
+
     if(index < 1 || index > log_count)
     {
         printf("ERROR: Invalid log index\n");
@@ -92,7 +91,7 @@ void load_log()
     }
     else 
     {
-        fprintf(stderr, "Error: HOME environment variable not set.\n");
+        printf(redprompt "Error: HOME environment variable not set.\n" normal);
         return;
     }
     FILE *file = fopen(full_path, "r");
